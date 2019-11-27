@@ -14,6 +14,14 @@ class MedicineRepository : SingleKeyEntityRepository<Medicine, Int>() {
         medicine.medicineId = result.getInt(1)
         medicine.name = result.getString(2)
         medicine.makerId = result.getInt(3)
+        medicine.typeId = result.getInt(4)
+        medicine.shapeId = result.getInt(5)
+        medicine.colorId = result.getInt(6)
+        medicine.marker = result.getString(7)
+        medicine.ingredient = result.getString(8)
+        medicine.effect = result.getString(9)
+        medicine.usage = result.getString(10)
+        medicine.caution = result.getString(11)
 
         return medicine
     }
