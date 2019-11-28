@@ -10,9 +10,12 @@ import java.sql.DriverManager
 class MedicineApplication : CommandLineRunner {
     override fun run(vararg args: String?) {
         println("hello world")
-        println(Repository.medicine.count())
-        println(Repository.medicine.getAll())
-        println(Repository.medicine.getByPK(1))
+//        println(Repository.medicine.count())
+        println(Repository.medicine.select("트루", "TS3", "정제", "타원", "하양"))
+        println(Repository.medicine.select("트루", "TS3", "정제", "타원", "하양"))
+//        println(Repository.medicine.getAll())
+//        println(Repository.medicine.getByPK(1))
+
     }
 }
 
