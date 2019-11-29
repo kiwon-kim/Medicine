@@ -12,5 +12,5 @@ class Medicine {
     var usage:String = ""
     var caution:String = ""
 
-    override fun toString(): String = "$name/ $maker/ $shape/ $type/ $marker/ $ingredient/ $effect/ $usage/ $caution "
+    override fun toString(): String = "$name/ $maker/ $shape/ $type/ $marker/ $color/ $ingredient/ $effect/ $usage/ $caution "
 }

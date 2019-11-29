@@ -1,11 +1,8 @@
 package com.example.medicine.repositories
 
 import com.example.medicine.entities.Medicine
-import com.example.medicine.entities.Medicine2
-import java.awt.Color
 import java.sql.DriverManager
 import java.sql.PreparedStatement
-import java.sql.ResultSet
 
 class MedicineRepository {
     protected fun createStatement(sql: String): PreparedStatement {
@@ -21,20 +18,24 @@ class MedicineRepository {
         statement.connection?.close()
     }
 
-    fun select(name: String, marker: String, type: String, shape: String, color: String): MutableList<Medicine> {
-        var sql = "select * from (" +
-                "\tselect p.name 약이름, m.name 제약회사, s.name 모양, t.name 제형, p.marker 식별, c.name 색상, p.ingredient, p.effect, p.usage, p.caution \n" +
-                "\tfrom Medicine p, Maker m , Shape s, Type t, Color c \n" +
-                "\twhere p.makerId = m.makerId and p.shapeId = s.shapeId and p.typeId = t.typeId and p.colorId = c.colorId \n" +
-                ") a\n" +
-                " where  a.약이름 like ? and a.식별 like ? and a.제형 like ? and a.모양 like ? and a.색상 like ?;"
+
+    fun select(marker: String?, type: String?, shape: String?, color: String?): MutableList<Medicine> {
+        val sqlwhere = Sqlwhere()
+        val where = sqlwhere.notAllInput(marker, type, shape, color)
+        println(where)
+
+            var sql = "select * from (" +
+                    "\tselect p.name 약이름, m.name 제약회사, s.name 모양, t.name 제형, p.marker 식별, c.name 색상, p.ingredient, p.effect, p.usage, p.caution \n" +
+                    "\tfrom Medicine p, Maker m , Shape s, Type t, Color c \n" +
+                    "\twhere p.makerId = m.makerId and p.shapeId = s.shapeId and p.typeId = t.typeId and p.colorId = c.colorId \n" +
+                    ") a\n" +
+                    "where $where;"
+
+
+
+        println(sql)
 
         val statement = createStatement(sql)
-        statement.setString(1, "%$name%")
-        statement.setString(2, "%$marker%")
-        statement.setString(3, "%$type%")
-        statement.setString(4, "%$shape%")
-        statement.setString(5, "%$color%")
 
         val result = statement.executeQuery()
 
